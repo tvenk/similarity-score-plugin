@@ -16,14 +16,10 @@
       "matches": ["<all_urls>"],
       "js": ["content.js"]
     }
-<<<<<<< HEAD
   ],
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   }
-=======
-  ]
->>>>>>> 3d71421ed9f212c2dd62637b45f8dced8ed02d67
 }
