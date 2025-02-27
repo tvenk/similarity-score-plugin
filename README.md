@@ -1,6 +1,6 @@
 # Similarity Score Plugin
 
-A browser extension that generates a composite similarity score based on user history and webpage data, using AI to determine how similar the webpage is to the user's interests.
+A browser extension that generates a composite similarity score based on user history and webpage data, using AI based algorithm to determine how similar the webpage is to the user's interests.
 
 ## Table of Contents
 
