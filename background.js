@@ -10,15 +10,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     fetchUserHistory()
       .then(history => {
         // Call the AI model to generate a score
-        generateScoreWithAI(title, description, history)
-          .then(score => {
-            console.log("Generated score:", score); // Log the score
-            sendResponse({ score }); // Send the score back to the content script
-          })
-          .catch(error => {
-            console.error("Error generating score:", error); // Log any errors
-            sendResponse({ score: null }); // Send a null score if there's an error
-          });
+        const score = generateScoreWithAI(title, description, history);
+        console.log("Generated score:", score); // Log the score
+        sendResponse({ score }); // Send the score back to the content script
       })
       .catch(error => {
         console.error("Error fetching user history:", error); // Log any errors
@@ -44,7 +38,7 @@ function fetchUserHistory() {
 }
 
 // Function to call the AI model and generate a score
-async function generateScoreWithAI(title, description, history) {
+function generateScoreWithAI(title, description, history) {
   // Combine title and description into a single input
   const inputText = `${title}. ${description}`;
 
