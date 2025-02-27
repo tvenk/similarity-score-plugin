@@ -52,11 +52,35 @@ function generateScoreWithAI(title, description, history) {
 
 // Example function to calculate a composite score from input text and user history
 function calculateCompositeScore(inputText, history) {
-  // Placeholder logic: Replace with your own scoring algorithm
-  // For demonstration, let's assume a simple similarity score based on keyword matching
-  const keywords = ["AI", "technology", "DeepSeek", "YouTube"];
-  const matches = keywords.filter(keyword => inputText.toLowerCase().includes(keyword.toLowerCase()));
-  const historyMatches = history.filter(entry => keywords.some(keyword => entry.title.toLowerCase().includes(keyword.toLowerCase())));
-  const score = (matches.length / keywords.length) * 100 + (historyMatches.length / history.length) * 100;
-  return Math.round(score); // Normalize to 0-100
+  // Extract keywords from the input text
+  const keywords = extractKeywords(inputText);
+
+  // Start at 0 for first-time searches
+  let score = 0;
+
+  // Increase score based on keyword matches in the user's history
+  const historyMatches = history.filter(entry => {
+    const entryKeywords = extractKeywords(entry.title);
+    return keywords.some(keyword => entryKeywords.includes(keyword));
+  });
+
+  // Calculate the score based on the number of matches
+  if (historyMatches.length > 0) {
+    score += (historyMatches.length / history.length) * 100;
+  }
+
+  // Ensure the score does not exceed 100
+  score = Math.min(score, 100);
+
+  // Round the score to the nearest integer
+  return Math.round(score);
+}
+
+// Function to extract keywords from text
+function extractKeywords(text) {
+  // Simple keyword extraction: split by spaces and remove common stop words
+  const stopWords = ["the", "and", "a", "an", "in", "on", "at", "for", "with", "of", "to"];
+  const words = text.toLowerCase().split(/\s+/);
+  const keywords = words.filter(word => !stopWords.includes(word) && word.length > 2);
+  return keywords;
 }
