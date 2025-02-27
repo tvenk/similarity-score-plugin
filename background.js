@@ -1,18 +1,33 @@
+<<<<<<< HEAD
 // Listen for messages from the popup script
+=======
+// Listen for messages from the content script
+>>>>>>> 3d71421ed9f212c2dd62637b45f8dced8ed02d67
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "processData") {
     console.log("Received processData request"); // Log to verify the message is received
 
+<<<<<<< HEAD
     const { title, url } = request.data;
     console.log("Processing data:", { title, url }); // Log the data
+=======
+    const { title, url, description } = request.data;
+    console.log("Processing data:", { title, url, description }); // Log the data
+>>>>>>> 3d71421ed9f212c2dd62637b45f8dced8ed02d67
 
     // Fetch user history
     fetchUserHistory()
       .then(history => {
         // Call the AI model to generate a score
+<<<<<<< HEAD
         const score = generateScoreWithAI(title, url, history);
         console.log("Generated score:", score); // Log the score
         sendResponse({ score }); // Send the score back to the popup script
+=======
+        const score = generateScoreWithAI(title, description, history);
+        console.log("Generated score:", score); // Log the score
+        sendResponse({ score }); // Send the score back to the content script
+>>>>>>> 3d71421ed9f212c2dd62637b45f8dced8ed02d67
       })
       .catch(error => {
         console.error("Error fetching user history:", error); // Log any errors
@@ -38,9 +53,15 @@ function fetchUserHistory() {
 }
 
 // Function to call the AI model and generate a score
+<<<<<<< HEAD
 function generateScoreWithAI(title, url, history) {
   // Combine title and URL into a single input
   const inputText = `${title}. ${url}`;
+=======
+function generateScoreWithAI(title, description, history) {
+  // Combine title and description into a single input
+  const inputText = `${title}. ${description}`;
+>>>>>>> 3d71421ed9f212c2dd62637b45f8dced8ed02d67
 
   console.log("Calling AI model with input:", inputText); // Log the AI input
 
@@ -78,6 +99,7 @@ function calculateCompositeScore(inputText, history) {
 
 // Function to extract keywords from text
 function extractKeywords(text) {
+<<<<<<< HEAD
   // Extended list of stop words
   const stopWords = [
     "the", "and", "a", "an", "in", "on", "at", "for", "with", "of", "to",
@@ -90,6 +112,10 @@ function extractKeywords(text) {
     "will", "just", "don", "should", "now"
   ];
 
+=======
+  // Simple keyword extraction: split by spaces and remove common stop words
+  const stopWords = ["the", "and", "a", "an", "in", "on", "at", "for", "with", "of", "to"];
+>>>>>>> 3d71421ed9f212c2dd62637b45f8dced8ed02d67
   const words = text.toLowerCase().split(/\s+/);
   const keywords = words.filter(word => !stopWords.includes(word) && word.length > 2);
   return keywords;
