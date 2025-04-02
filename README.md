@@ -27,7 +27,7 @@ A browser extension that generates a composite similarity score based on user hi
    ```
 
 2. **Set Up the Extension in Your Browser:**
-   - **For Chrome:**
+   - **For Chrome and Chromium based browsers:**
      1. Open Chrome.
      2. Go to `chrome://extensions/`.
      3. Enable "Developer mode" by toggling the switch in the top right corner.
